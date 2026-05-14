@@ -337,11 +337,54 @@ h4 { color: #3A3A3C !important; }
     transform: translateY(-1px) !important;
 }
 
-/* ══ DARK MODE ═══════════════════════════════════ */
-body.dark-mode {
+/* ── FIB LEVEL BOX STYLES ──────────────────────────── */
+.fib-table-wrap {
+    background: rgba(15,20,35,0.70);
+    border: 1px solid rgba(167,139,250,0.25);
+    border-radius: 18px;
+    overflow: hidden;
+    margin: 8px 0 16px 0;
+}
+.fib-row {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    transition: background 0.15s ease;
+    position: relative;
+}
+.fib-row:last-child { border-bottom: none; }
+.fib-row:hover { background: rgba(255,255,255,0.05); }
+.fib-row.fib-near {
+    background: rgba(251,191,36,0.10);
+    border-left: 3px solid #fbbf24;
+}
+.fib-row.fib-golden {
+    background: rgba(244,143,177,0.10);
+    border-left: 3px solid #F48FB1;
+}
+.fib-bar-bg {
+    position: absolute; left: 0; top: 0; bottom: 0;
+    background: rgba(167,139,250,0.07);
+    pointer-events: none;
+    transition: width 0.4s ease;
+}
+.fib-label { font-size: 0.78rem; font-weight: 800; color: rgba(235,235,245,0.50); min-width: 72px; letter-spacing: 0.04em; position: relative; z-index: 1; }
+.fib-price { font-size: 1.10rem; font-weight: 900; color: #F5F5F7; min-width: 90px; font-variant-numeric: tabular-nums; position: relative; z-index: 1; }
+.fib-dist  { font-size: 0.82rem; font-weight: 700; min-width: 72px; text-align: right; position: relative; z-index: 1; }
+.fib-desc  { font-size: 0.72rem; color: rgba(235,235,245,0.42); flex: 1; text-align: right; padding-left: 12px; position: relative; z-index: 1; line-height: 1.3; }
+.fib-near-badge {
+    font-size: 0.65rem; font-weight: 800; color: #fbbf24;
+    background: rgba(251,191,36,0.15); border: 1px solid rgba(251,191,36,0.35);
+    border-radius: 6px; padding: 2px 7px; margin-left: 8px;
+    white-space: nowrap; position: relative; z-index: 1;
+}
+
+/* ══ DARK MODE ═══════════════════════════════════════════════════ */
+body {
     background: transparent !important;
 }
-body.dark-mode::before {
+body::before {
     background:
         radial-gradient(ellipse 900px 800px at 8%  12%,  rgba(52,211,153,0.30),  transparent 65%),
         radial-gradient(ellipse 750px 680px at 92% 30%,  rgba(96,165,250,0.25),  transparent 65%),
@@ -350,63 +393,61 @@ body.dark-mode::before {
         radial-gradient(ellipse 400px 380px at 55% 50%,  rgba(249,168,212,0.15), transparent 65%),
         linear-gradient(135deg, #0a0f18 0%, #0d1525 40%, #120d22 70%, #0e0c0a 100%);
 }
-body.dark-mode [data-testid="stHeader"] { display: none !important; height: 0 !important; }
-body.dark-mode [data-testid="stMetric"] {
+[data-testid="stHeader"] { display: none !important; height: 0 !important; }
+[data-testid="stMetric"] {
     background: rgba(255,255,255,0.08) !important; border: 1px solid rgba(255,255,255,0.14) !important;
     box-shadow: 0 8px 32px rgba(0,0,0,0.40), inset 0 1px 0 rgba(255,255,255,0.14) !important;
 }
-body.dark-mode [data-testid="stMetricLabel"] { color: rgba(235,235,245,0.45) !important; }
-body.dark-mode [data-testid="stMetricValue"] { color: #F5F5F7 !important; }
-body.dark-mode [data-testid="stMarkdown"],
-body.dark-mode p, body.dark-mode label { color: #E5E5EA !important; }
-body.dark-mode span:not([style*="color"]) { color: #E5E5EA !important; }
-body.dark-mode h1, body.dark-mode h2, body.dark-mode h3 { color: #F5F5F7 !important; }
-body.dark-mode h4 { color: rgba(235,235,245,0.75) !important; }
-body.dark-mode hr { border-color: rgba(255,255,255,0.08) !important; }
-body.dark-mode [data-testid="stCaption"], body.dark-mode small { color: rgba(235,235,245,0.38) !important; }
-body.dark-mode .stButton > button {
+[data-testid="stMetricLabel"] { color: rgba(235,235,245,0.45) !important; }
+[data-testid="stMetricValue"] { color: #F5F5F7 !important; }
+[data-testid="stMarkdown"], p, label { color: #E5E5EA !important; }
+span:not([style*="color"]) { color: #E5E5EA !important; }
+h1, h2, h3 { color: #F5F5F7 !important; }
+h4 { color: rgba(235,235,245,0.75) !important; }
+hr { border-color: rgba(255,255,255,0.08) !important; }
+[data-testid="stCaption"], small { color: rgba(235,235,245,0.38) !important; }
+.stButton > button {
     background: rgba(255,255,255,0.08) !important; color: #34D399 !important;
     border: 1px solid rgba(255,255,255,0.14) !important;
     box-shadow: 0 4px 16px rgba(0,0,0,0.30), inset 0 1px 0 rgba(255,255,255,0.12) !important;
 }
-body.dark-mode .stButton > button:hover {
+.stButton > button:hover {
     background: rgba(255,255,255,0.14) !important; border-color: rgba(52,211,153,0.40) !important; color: #6EE7B7 !important;
 }
-body.dark-mode .stButton > button[kind="primary"] {
+.stButton > button[kind="primary"] {
     background: rgba(5,150,105,0.65) !important; color: #FFFFFF !important;
     border: 1px solid rgba(255,255,255,0.20) !important;
     box-shadow: 0 6px 24px rgba(5,150,105,0.35), inset 0 1px 0 rgba(255,255,255,0.22) !important;
 }
-body.dark-mode [data-testid="stTextInput"] > div > div {
+[data-testid="stTextInput"] > div > div {
     background: rgba(255,255,255,0.08) !important; border: 1px solid rgba(255,255,255,0.14) !important;
 }
-body.dark-mode [data-testid="stTextInput"] > div > div > input { color: #E5E5EA !important; }
-body.dark-mode [data-testid="stTextInput"] > div > div > input::placeholder { color: rgba(235,235,245,0.35) !important; }
-body.dark-mode [data-testid="stTabs"] [role="tablist"] {
+[data-testid="stTextInput"] > div > div > input { color: #E5E5EA !important; }
+[data-testid="stTextInput"] > div > div > input::placeholder { color: rgba(235,235,245,0.35) !important; }
+[data-testid="stTabs"] [role="tablist"] {
     background: rgba(255,255,255,0.07) !important; border: 1px solid rgba(255,255,255,0.12) !important;
 }
-body.dark-mode [data-testid="stTabs"] button[role="tab"] { color: rgba(235,235,245,0.45) !important; }
-body.dark-mode [data-testid="stTabs"] button[role="tab"][aria-selected="true"] {
+[data-testid="stTabs"] button[role="tab"] { color: rgba(235,235,245,0.45) !important; }
+[data-testid="stTabs"] button[role="tab"][aria-selected="true"] {
     background: rgba(5,150,105,0.70) !important; color: #fff !important;
 }
-body.dark-mode [data-testid="stTabs"] button[role="tab"]:hover:not([aria-selected="true"]) {
+[data-testid="stTabs"] button[role="tab"]:hover:not([aria-selected="true"]) {
     background: rgba(255,255,255,0.10) !important; color: #F5F5F7 !important;
 }
-body.dark-mode [data-testid="stExpander"] {
+[data-testid="stExpander"] {
     background: rgba(255,255,255,0.07) !important; border: 1px solid rgba(255,255,255,0.12) !important;
 }
-body.dark-mode [data-testid="stExpander"] summary { color: #F5F5F7 !important; }
-body.dark-mode [data-testid="stInfo"]    { background: rgba(96,165,250,0.18) !important; border: 1px solid rgba(96,165,250,0.30) !important; color: #93C5FD !important; }
-body.dark-mode [data-testid="stSuccess"] { background: rgba(52,211,153,0.15) !important; border: 1px solid rgba(52,211,153,0.28) !important; color: #6EE7B7 !important; }
-body.dark-mode [data-testid="stError"]   { background: rgba(248,113,113,0.15) !important; border: 1px solid rgba(248,113,113,0.28) !important; color: #FCA5A5 !important; }
-body.dark-mode [data-testid="stWarning"] { background: rgba(251,191,36,0.15) !important; border: 1px solid rgba(251,191,36,0.28) !important; color: #FCD34D !important; }
-body.dark-mode [data-testid="stSelectbox"] > div > div {
+[data-testid="stExpander"] summary { color: #F5F5F7 !important; }
+[data-testid="stInfo"]    { background: rgba(96,165,250,0.18) !important; border: 1px solid rgba(96,165,250,0.30) !important; color: #93C5FD !important; }
+[data-testid="stSuccess"] { background: rgba(52,211,153,0.15) !important; border: 1px solid rgba(52,211,153,0.28) !important; color: #6EE7B7 !important; }
+[data-testid="stError"]   { background: rgba(248,113,113,0.15) !important; border: 1px solid rgba(248,113,113,0.28) !important; color: #FCA5A5 !important; }
+[data-testid="stWarning"] { background: rgba(251,191,36,0.15) !important; border: 1px solid rgba(251,191,36,0.28) !important; color: #FCD34D !important; }
+[data-testid="stSelectbox"] > div > div {
     background: rgba(255,255,255,0.08) !important; border: 1px solid rgba(255,255,255,0.14) !important; color: #F5F5F7 !important;
 }
-body.dark-mode .gm-header-title { color: #F5F5F7 !important; }
-body.dark-mode .gm-header-sub   { color: rgba(235,235,245,0.45) !important; }
-.gm-card-label { color: #1C1C1E !important; }
-body.dark-mode .gm-card-label   { color: #FFFFFF !important; text-shadow: 0 1px 3px rgba(0,0,0,0.45) !important; }
+.gm-header-title { color: #F5F5F7 !important; }
+.gm-header-sub   { color: rgba(235,235,245,0.45) !important; }
+.gm-card-label   { color: #FFFFFF !important; text-shadow: 0 1px 3px rgba(0,0,0,0.45) !important; }
 
 @media (max-width: 768px) {
     html, body { margin: 0 !important; padding: 0 !important; overflow-x: hidden !important; }
@@ -427,6 +468,7 @@ body.dark-mode .gm-card-label   { color: #FFFFFF !important; text-shadow: 0 1px 
     [data-testid="stTabs"] button[role="tab"] { font-size: 0.82rem !important; padding: 8px 10px !important; }
     [data-testid="stMetric"] { padding: 12px 14px !important; }
     [data-testid="stMarkdown"]:has(#gm-fav-anchor) + [data-testid="stHorizontalBlock"] { flex-wrap: wrap !important; }
+    .fib-desc { display: none; }
 }
 @media (max-width: 480px) {
     .block-container, [data-testid="block-container"] { padding: 0.25rem 0.35rem 2rem 0.35rem !important; }
@@ -435,7 +477,6 @@ body.dark-mode .gm-card-label   { color: #FFFFFF !important; text-shadow: 0 1px 
 }
 </style>
 """
-_GLOBAL_CSS = _GLOBAL_CSS.replace('body.dark-mode', 'body')
 st.markdown(_GLOBAL_CSS, unsafe_allow_html=True)
 
 _TANUKI_HTML = r"""
@@ -605,6 +646,37 @@ _stc.html("""
 """, height=0, scrolling=False)
 
 
+# ─────────────────────────────────────────────────────────────────
+# FIX: Scroll-to-result — ใช้ st.session_state flag + JS ที่ robust
+# แทน _stc.html ซึ่งทำงานไม่แน่นอนใน iframe บาง browser
+# ─────────────────────────────────────────────────────────────────
+_SCROLL_JS = """
+<script>
+(function(){
+  // รอให้ Streamlit render element ก่อนแล้วค่อย scroll
+  var tries = 0;
+  function doScroll(){
+    var d = window.parent ? window.parent.document : document;
+    var w = window.parent ? window.parent : window;
+    // หา anchor element ด้วยหลาย selector เผื่อ Streamlit เปลี่ยน DOM
+    var anchor = d.getElementById('gm-result-anchor');
+    if(!anchor){
+      // fallback: หา heading ที่ตรงกับ ticker
+      anchor = d.querySelector('[data-testid="stMarkdown"] #gm-result-anchor');
+    }
+    if(anchor){
+      anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else if(tries < 30){
+      tries++;
+      setTimeout(doScroll, 150);
+    }
+  }
+  // delay เล็กน้อยให้ Streamlit วาง DOM ก่อน
+  setTimeout(doScroll, 400);
+})();
+</script>
+"""
+
 def sanitize_ticker(raw: str) -> str:
     return re.sub(r"[^A-Z0-9.\-]", "", str(raw).upper().strip())
 
@@ -715,6 +787,17 @@ FIB_DESCRIPTIONS = {
     "Fib 0%":    ("⚠️ จุดต่ำสุด (Swing Low)",         "ถ้าหลุดนี้ Breakdown — เตรียมคัทสถานะทันที อย่ารีบ Average Down"),
 }
 
+# สี gradient สำหรับแต่ละ Fibonacci level
+FIB_COLORS = {
+    "Fib 100%":  {"border": "#CE93D8", "text": "#CE93D8", "bg": "rgba(206,147,216,0.12)"},
+    "Fib 78.6%": {"border": "#BA68C8", "text": "#BA68C8", "bg": "rgba(186,104,200,0.10)"},
+    "Fib 61.8%": {"border": "#F48FB1", "text": "#F48FB1", "bg": "rgba(244,143,177,0.15)"},  # golden
+    "Fib 50.0%": {"border": "#FFB74D", "text": "#FFB74D", "bg": "rgba(255,183,77,0.12)"},
+    "Fib 38.2%": {"border": "#81C784", "text": "#81C784", "bg": "rgba(129,199,132,0.10)"},
+    "Fib 23.6%": {"border": "#64B5F6", "text": "#64B5F6", "bg": "rgba(100,181,246,0.10)"},
+    "Fib 0%":    {"border": "#CE93D8", "text": "#CE93D8", "bg": "rgba(206,147,216,0.08)"},
+}
+
 
 def calculate_indicators(df: pd.DataFrame):
     close = df["Close"]
@@ -724,11 +807,9 @@ def calculate_indicators(df: pd.DataFrame):
     avg_gain = gain.ewm(com=13, min_periods=14, adjust=False).mean()
     avg_loss = loss.ewm(com=13, min_periods=14, adjust=False).mean()
     rsi = 100 - (100 / (1 + (avg_gain / avg_loss)))
-    # SMA 21 / 50 / 200 — มาตรฐาน EWM / Wilder ที่กองทุนใหญ่ใช้
     sma21  = close.rolling(21).mean()
     sma50  = close.rolling(50).mean()
     sma200 = close.rolling(200).mean()
-    # EMA 21 / 50 / 200
     ema21  = close.ewm(span=21,  adjust=False).mean()
     ema50  = close.ewm(span=50,  adjust=False).mean()
     ema200 = close.ewm(span=200, adjust=False).mean()
@@ -751,7 +832,7 @@ def calculate_indicators(df: pd.DataFrame):
 
 
 def render_custom_sr_chart(ticker, df, current_price, r2, r1, s1, s2, rsi_value):
-    """กราฟเส้นสีม่วงพร้อมแนวรับ-ต้าน (Rocket Style) — labels ไม่ซ้อนกัน"""
+    """กราฟเส้นสีม่วงพร้อมแนวรับ-ต้าน (Rocket Style)"""
     fig = go.Figure()
     fig.add_trace(go.Scatter(
         x=df.index, y=df['Close'], mode='lines', name='ราคาปิด',
@@ -864,6 +945,57 @@ def _style_signal_html(label: str, color: str, bg: str) -> str:
             f'padding:3px 12px;font-weight:700;font-size:0.92rem;">{label}</span>')
 
 
+def render_fib_table(fibs: dict, current_price: float, atr: float):
+    """
+    FIX: แสดง Fibonacci levels ด้วย visual box พร้อมสี gradient และ progress bar
+    แต่ละ level มีกรอบแยก ระบุ near/golden zone ชัดเจน
+    """
+    fib_order = ["Fib 100%", "Fib 78.6%", "Fib 61.8%", "Fib 50.0%", "Fib 38.2%", "Fib 23.6%", "Fib 0%"]
+    fib_values = [fibs.get(k) for k in fib_order]
+    valid_prices = [v for v in fib_values if v is not None and not pd.isna(v)]
+    if not valid_prices:
+        st.warning("ไม่มีข้อมูล Fibonacci")
+        return
+
+    price_max = max(valid_prices)
+    price_min = min(valid_prices)
+    price_range = price_max - price_min if price_max != price_min else 1.0
+
+    rows_html = ""
+    for key, val in zip(fib_order, fib_values):
+        if val is None or pd.isna(val):
+            continue
+        c = FIB_COLORS.get(key, {"border": "#a78bfa", "text": "#a78bfa", "bg": "rgba(167,139,250,0.10)"})
+        desc_title, desc_body = FIB_DESCRIPTIONS.get(key, ("", ""))
+        distance = ((current_price - val) / val) * 100 if val else 0
+        is_near   = abs(current_price - val) <= atr * 0.5
+        is_golden = key == "Fib 61.8%"
+        dist_color = "#34D399" if distance >= 0 else "#F87171"
+        sign = "+" if distance >= 0 else ""
+
+        # progress bar width (% ของช่วงราคา)
+        bar_pct = ((val - price_min) / price_range) * 100
+
+        extra_class = ""
+        if is_near:   extra_class = "fib-near"
+        elif is_golden: extra_class = "fib-golden"
+
+        near_badge = '<span class="fib-near-badge">📍 ราคาใกล้</span>' if is_near else ""
+        label_short = key.replace("Fib ", "")
+
+        rows_html += f"""
+<div class="fib-row {extra_class}">
+  <div class="fib-bar-bg" style="width:{bar_pct:.1f}%"></div>
+  <div class="fib-label" style="color:{c['text']};">{label_short}</div>
+  <div class="fib-price">{val:.2f}{near_badge}</div>
+  <div class="fib-dist" style="color:{dist_color};">{sign}{distance:.1f}%</div>
+  <div class="fib-desc">{desc_title}</div>
+</div>"""
+
+    st.markdown(f'<div class="fib-table-wrap">{rows_html}</div>', unsafe_allow_html=True)
+    st.caption("📐 คำนวณจาก Swing High/Low ย้อนหลัง 60 วัน  |  สีแดงอยู่เหนือราคา สีเขียวอยู่ใต้ราคา  |  📍 = ราคาอยู่ใกล้ระดับนี้ (ห่าง < ½ ATR)")
+
+
 def render_trading_style(price, atr, pivots, fibs, values):
     st.markdown("### 🧠 สไตล์การเล่นหุ้น — เลือกให้ตรงนิสัย")
     sma50  = values.get("sma50");  sma200 = values.get("sma200")
@@ -903,29 +1035,29 @@ def render_trading_style(price, atr, pivots, fibs, values):
 
     with st.expander("🌊 Swing Trade — เล่นเป็นรอบ ย่อซื้อ-เด้งขาย (ใช้ Fibo)", expanded=False):
         st.markdown('<p style="color:#888;font-size:0.92rem;margin-top:-6px;">ซื้อตอนราคาย่อลงมาหา Fibo แล้วรอ Bounce ขึ้น</p>', unsafe_allow_html=True)
-        fib_levels = [
-            ("Fib 100%","100%","จุดสูงสุด",0),("Fib 78.6%","78.6%","แนวรับอ่อน",1),
-            ("Fib 61.8%","61.8%","🥇 Golden Zone",3),("Fib 50.0%","50%","🥈 จุดกลาง",2),
-            ("Fib 38.2%","38.2%","🥉 Moderate zone",2),("Fib 23.6%","23.6%","แนวรับตื้น",1),
-            ("Fib 0%","0%","จุดต่ำสุด",0),
-        ]
         if fibs:
+            # FIX: ใช้ render_fib_table แทน markdown table เดิม
+            render_fib_table(fibs, price, atr)
+
+            # หาโซนที่ใกล้ที่สุดแล้ว show signal
             found_zone = None
-            st.markdown("| Fibo | ราคา | โซน | สถานะ |"); st.markdown("|---|---|---|---|")
-            for fkey, label, desc, strength in fib_levels:
-                fval = fibs.get(fkey)
-                if fval is None: continue
-                near = abs(price - fval) <= atr * 0.5
-                near_mark = "🎯 **ราคาอยู่ใกล้โซนนี้**" if near else ""
-                if near and found_zone is None: found_zone = (fkey, label, desc, fval, strength)
-                st.markdown(f"| {label} | {fval:.2f} | {desc} | {near_mark} |")
-            st.markdown("")
+            fib_strengths = {"Fib 61.8%": 3, "Fib 50.0%": 2, "Fib 38.2%": 2,
+                             "Fib 78.6%": 1, "Fib 23.6%": 1, "Fib 100%": 0, "Fib 0%": 0}
+            for fkey, fval in fibs.items():
+                if fval is not None and abs(price - fval) <= atr * 0.5:
+                    found_zone = (fkey, fval, fib_strengths.get(fkey, 0))
+                    break
+
             if found_zone:
-                _, label, desc, fval, strength = found_zone
-                if strength >= 3: sig = _style_signal_html("🥇 Golden Zone — โซนซื้อที่ดีที่สุด!","#22c55e","rgba(34,197,94,0.18)")
-                elif strength >= 2: sig = _style_signal_html("📍 โซนรับ Fibo — รอสัญญาณ Buy","#22c55e","rgba(34,197,94,0.12)")
-                elif fkey == "Fib 0%": sig = _style_signal_html("⚠️ ใกล้จุดต่ำสุด — ระวัง Breakdown","#f59e0b","rgba(245,158,11,0.15)")
-                else: sig = _style_signal_html("📌 ใกล้แนวรับตื้น — รอยืนยันก่อน","#94a3b8","rgba(148,163,184,0.15)")
+                fkey, fval, strength = found_zone
+                if strength >= 3:
+                    sig = _style_signal_html("🥇 Golden Zone — โซนซื้อที่ดีที่สุด!","#22c55e","rgba(34,197,94,0.18)")
+                elif strength >= 2:
+                    sig = _style_signal_html("📍 โซนรับ Fibo — รอสัญญาณ Buy","#22c55e","rgba(34,197,94,0.12)")
+                elif fkey == "Fib 0%":
+                    sig = _style_signal_html("⚠️ ใกล้จุดต่ำสุด — ระวัง Breakdown","#f59e0b","rgba(245,158,11,0.15)")
+                else:
+                    sig = _style_signal_html("📌 ใกล้แนวรับตื้น — รอยืนยันก่อน","#94a3b8","rgba(148,163,184,0.15)")
                 st.markdown(f"**สัญญาณ:** {sig}", unsafe_allow_html=True)
         else:
             st.warning("ข้อมูล Fibonacci ไม่เพียงพอ")
@@ -938,10 +1070,22 @@ def render_trading_style(price, atr, pivots, fibs, values):
         if sma_ok and sma200_ok:
             golden_zone = price > sma200 and sma50 > sma200
             death_zone  = price < sma200 and sma50 < sma200
-            if golden_zone:   zone_html = _style_signal_html("🌟 GOLDEN ZONE","#22c55e","rgba(34,197,94,0.15)"); action="**ถือต่อ** — ไม่ขาย ตราบที่ราคาอยู่เหนือ SMA200"; stop_txt=f"Stop: หลุด SMA200 ({sma200:.2f}) → ออก"
-            elif death_zone:  zone_html = _style_signal_html("💀 DEATH ZONE","#ef4444","rgba(239,68,68,0.15)"); action="**ออกจากตลาด** — รอ Golden Cross"; stop_txt="ไม่ควรซื้อจนกว่า SMA50 จะข้าม SMA200"
-            elif price>sma50: zone_html = _style_signal_html("🟢 ขาขึ้น — แต่ยังไม่ Golden","#86efac","rgba(134,239,172,0.15)"); action="**ถือได้** — แต่ระวัง SMA50 ยังไม่ข้าม SMA200"; stop_txt=f"Stop: หลุด SMA50 ({sma50:.2f}) → ลดสัดส่วน"
-            else:             zone_html = _style_signal_html("🔴 ขาลง","#ef4444","rgba(239,68,68,0.15)"); action="**หลีกเลี่ยง** — รอราคากลับมาเหนือ SMA50"; stop_txt=f"ไม่ซื้อจนกว่าราคาจะกลับมาเหนือ {sma50:.2f}"
+            if golden_zone:
+                zone_html = _style_signal_html("🌟 GOLDEN ZONE","#22c55e","rgba(34,197,94,0.15)")
+                action = "**ถือต่อ** — ไม่ขาย ตราบที่ราคาอยู่เหนือ SMA200"
+                stop_txt = f"Stop: หลุด SMA200 ({sma200:.2f}) → ออก"
+            elif death_zone:
+                zone_html = _style_signal_html("💀 DEATH ZONE","#ef4444","rgba(239,68,68,0.15)")
+                action = "**ออกจากตลาด** — รอ Golden Cross"
+                stop_txt = "ไม่ควรซื้อจนกว่า SMA50 จะข้าม SMA200"
+            elif price > sma50:
+                zone_html = _style_signal_html("🟢 ขาขึ้น — แต่ยังไม่ Golden","#86efac","rgba(134,239,172,0.15)")
+                action = "**ถือได้** — แต่ระวัง SMA50 ยังไม่ข้าม SMA200"
+                stop_txt = f"Stop: หลุด SMA50 ({sma50:.2f}) → ลดสัดส่วน"
+            else:
+                zone_html = _style_signal_html("🔴 ขาลง","#ef4444","rgba(239,68,68,0.15)")
+                action = "**หลีกเลี่ยง** — รอราคากลับมาเหนือ SMA50"
+                stop_txt = f"ไม่ซื้อจนกว่าราคาจะกลับมาเหนือ {sma50:.2f}"
             st.markdown(f"**โซนเทรนด์:** {zone_html}", unsafe_allow_html=True)
             st.markdown(f"**การกระทำ:** {action}")
             st.markdown(f"**จุดตัดสินใจ:** {stop_txt}")
@@ -1131,28 +1275,10 @@ def render_support_resistance(current_price, current_atr, pivots, fibs, values):
         pc3.metric("แนวต้านแข็งแกร่ง (R3)", f"{pivots['R3']:.2f}", f"{((current_price-pivots['R3'])/current_price*100):+.1f}%")
 
     with sr_t2:
+        # FIX: ใช้ render_fib_table แทน markdown ธรรมดา
         st.markdown('<span style="background:rgba(34,197,94,0.15);color:#16a34a;border-radius:8px;padding:3px 12px;font-weight:700;font-size:0.88rem;">🌊 เหมาะ Swing Trade — ย่อซื้อ เด้งขาย</span>', unsafe_allow_html=True)
         st.caption("คำนวณจาก: Swing High และ Swing Low ของราคาย้อนหลัง 60 วัน  |  ระดับ 0% / 23.6% / 38.2% / 50% / 61.8% / 78.6% / 100%")
-        for index, (name, value) in enumerate(fibs.items()):
-            desc_title, desc_body = FIB_DESCRIPTIONS.get(name, ("", ""))
-            distance = ((current_price - value) / value) * 100 if value else 0
-            near = abs(current_price - value) <= current_atr * 0.5
-            _dist_color = "#34D399" if distance >= 0 else "#F87171"
-            _border_style = "border-left:3px solid #fbbf24;" if near else "border-left:3px solid #a78bfa;"
-            _near_txt = "  🎯 **ราคาอยู่ใกล้**" if near else ""
-            st.markdown(
-                f"**{name}** &nbsp;&nbsp; `{value:.2f}` &nbsp;&nbsp; "
-                f"<span style='color:{_dist_color};font-weight:700'>{distance:+.1f}% จากราคา</span>"
-                f"{_near_txt}",
-                unsafe_allow_html=True,
-            )
-            if desc_title:
-                st.caption(f"{desc_title} — {desc_body}")
-            st.markdown(
-                f'<hr style="{_border_style}margin:2px 0 6px 0;border:none;border-left:3px solid '
-                f'{"#fbbf24" if near else "rgba(167,139,250,0.25)"};height:1px;">',
-                unsafe_allow_html=True,
-            )
+        render_fib_table(fibs, current_price, current_atr)
 
     with sr_t3:
         st.markdown('<span style="background:rgba(59,130,246,0.15);color:#2563eb;border-radius:8px;padding:3px 12px;font-weight:700;font-size:0.88rem;">🏔️ เหมาะ Trend Follow — ถือยาว ไม่หลุดเทรนด์ไม่ขาย</span>', unsafe_allow_html=True)
@@ -1175,14 +1301,16 @@ def render_support_resistance(current_price, current_atr, pivots, fibs, values):
 # ══════════════════════════════════════════════════════════════════
 # SESSION STATE INIT
 # ══════════════════════════════════════════════════════════════════
-if "favorites"     not in st.session_state: st.session_state.favorites     = load_favorites()
-if "show_manage"   not in st.session_state: st.session_state.show_manage   = False
-if "search_box"    not in st.session_state: st.session_state.search_box    = ""
-if "auto_scan"     not in st.session_state: st.session_state.auto_scan     = False
-if "current_stock" not in st.session_state: st.session_state.current_stock = ""
-if "market"        not in st.session_state: st.session_state.market        = "foreign"
-if "quick_pick"    not in st.session_state: st.session_state.quick_pick    = ""
-if "show_gainers"  not in st.session_state: st.session_state.show_gainers  = False
+if "favorites"       not in st.session_state: st.session_state.favorites     = load_favorites()
+if "show_manage"     not in st.session_state: st.session_state.show_manage   = False
+if "search_box"      not in st.session_state: st.session_state.search_box    = ""
+if "auto_scan"       not in st.session_state: st.session_state.auto_scan     = False
+if "current_stock"   not in st.session_state: st.session_state.current_stock = ""
+if "market"          not in st.session_state: st.session_state.market        = "foreign"
+if "quick_pick"      not in st.session_state: st.session_state.quick_pick    = ""
+if "show_gainers"    not in st.session_state: st.session_state.show_gainers  = False
+# FIX: เพิ่ม flag สำหรับ scroll หลัง rerun
+if "should_scroll"   not in st.session_state: st.session_state.should_scroll = False
 
 # ══════════════════════════════════════════════════════════════════
 # HEADER
@@ -1207,9 +1335,10 @@ fav_cols = st.columns(max(len(favorites), 1) + 1)
 if favorites:
     for index, favorite in enumerate(favorites):
         if fav_cols[index].button(favorite_button_label(favorite), key=f"fav_{favorite}"):
-            st.session_state.search_box = favorite
-            st.session_state.auto_scan  = True
-            st.session_state.show_gainers = False
+            st.session_state.search_box    = favorite
+            st.session_state.auto_scan     = True
+            st.session_state.show_gainers  = False
+            st.session_state.should_scroll = True   # FIX
             st.rerun()
 else:
     fav_cols[0].info("ยังไม่มีหุ้นปักหมุด")
@@ -1314,9 +1443,10 @@ if st.session_state.show_gainers:
   </div>
 </div>""", unsafe_allow_html=True)
                     if _gcol.button(f"📊 ดูกราฟ {_g['ticker']}", key=f"gainer_scan_{_g['ticker']}_{_rank}", use_container_width=True):
-                        st.session_state.search_box   = _g["ticker"]
-                        st.session_state.auto_scan    = True
-                        st.session_state.show_gainers = False
+                        st.session_state.search_box    = _g["ticker"]
+                        st.session_state.auto_scan     = True
+                        st.session_state.show_gainers  = False
+                        st.session_state.should_scroll = True   # FIX
                         st.rerun()
 
 is_thai = st.session_state.market == "thai"
@@ -1334,10 +1464,11 @@ else:
 _qcols = st.columns(len(quick_tickers))
 for _qcol, _qt in zip(_qcols, quick_tickers):
     if _qcol.button(_qt, key=f"qpick_{_qt}", use_container_width=True):
-        st.session_state.search_box   = _qt
-        st.session_state.quick_pick   = _qt
-        st.session_state.auto_scan    = True
-        st.session_state.show_gainers = False
+        st.session_state.search_box    = _qt
+        st.session_state.quick_pick    = _qt
+        st.session_state.auto_scan     = True
+        st.session_state.show_gainers  = False
+        st.session_state.should_scroll = True   # FIX
         st.rerun()
 
 # ── Search input + scan button ────────────────────────────────────
@@ -1361,6 +1492,7 @@ else:
 
 if (scan_btn or auto_scan) and target_stock:
     st.session_state.current_stock = target_stock
+    st.session_state.should_scroll = True   # FIX: set scroll flag เมื่อ scan button กด
 
 show_analysis = bool(target_stock) and (
     scan_btn or auto_scan or st.session_state.current_stock == target_stock
@@ -1370,20 +1502,14 @@ show_analysis = bool(target_stock) and (
 # STOCK RESULT SECTION
 # ══════════════════════════════════════════════════════════════════
 if show_analysis:
-    if scan_btn or auto_scan:
-        _stc.html(f"""
-<script>
-(function(){{
-  var d=window.parent.document; var attempts=0;
-  function scrollDown(){{
-    var el=d.getElementById('gm-result-anchor');
-    if(el){{ el.scrollIntoView({{behavior:'smooth',block:'start'}}); }}
-    else if(attempts<25){{ attempts++; setTimeout(scrollDown,120); }}
-  }}
-  setTimeout(scrollDown,300);
-}})();
-</script>""", height=0, scrolling=False)
-    st.markdown('<div id="gm-result-anchor"></div>', unsafe_allow_html=True)
+    # FIX: วาง anchor ก่อน render ผล — scroll JS จะทำงานหลังจาก DOM พร้อม
+    st.markdown('<div id="gm-result-anchor" style="scroll-margin-top:20px;"></div>', unsafe_allow_html=True)
+
+    # FIX: inject scroll JS ทุกครั้งที่มีผลลัพธ์ใหม่
+    if st.session_state.should_scroll:
+        st.session_state.should_scroll = False
+        st.markdown(_SCROLL_JS, unsafe_allow_html=True)
+
     with st.spinner(f"กำลังดึงข้อมูลของ {target_stock}..."):
         try:
             stock = yf.Ticker(target_stock)
@@ -1466,7 +1592,6 @@ if show_analysis:
                 post_label  = "หลังตลาดปิด" if info.get("postMarketPrice") else "ก่อนตลาดเปิด"
                 has_post    = bool(post_price and post_price != current_price)
 
-                # ── Hero card ──────────────────────────────────────────
                 _post_html = ""
                 if has_post:
                     _post_html = f"""
@@ -1502,7 +1627,6 @@ if show_analysis:
   {_post_html}
 </div>""", unsafe_allow_html=True)
 
-                # ── Signal alert ───────────────────────────────────────
                 _alert_cfg = {
                     "success": ("rgba(52,211,153,0.15)",  "#34D399", "#6EE7B7"),
                     "error":   ("rgba(248,113,113,0.15)", "#F87171", "#FCA5A5"),
@@ -1515,7 +1639,6 @@ if show_analysis:
   {idea}
 </div>""", unsafe_allow_html=True)
 
-                # ── 4 KEY METRIC CARDS ────────────────────────────────
                 if current_rsi >= 70:   _rsi_col, _rsi_sub = "#F87171", "Overbought 🔴"
                 elif current_rsi >= 60: _rsi_col, _rsi_sub = "#FCD34D", "Bullish 🟡"
                 elif current_rsi >= 31: _rsi_col, _rsi_sub = "#34D399", "Neutral 🟢"
@@ -1548,7 +1671,6 @@ if show_analysis:
                        _trend_color)
                 _kcard(_kc4, "Volume", _vol_str, f"ATR {current_atr:.2f}", "#a78bfa")
 
-                # ── MA BADGES ROW ─────────────────────────────────────
                 def _ma_badge(label, ma_val):
                     if ma_val is None or pd.isna(ma_val):
                         return (f'<span style="background:rgba(148,163,184,0.12);border:1px solid rgba(148,163,184,0.25);'
@@ -1580,13 +1702,11 @@ if show_analysis:
                 st.markdown(f'<div style="display:flex;flex-wrap:wrap;gap:7px;margin:14px 0 4px 0;">{_badges}</div>',
                             unsafe_allow_html=True)
 
-                # ── TABS: กราฟ | บริษัท | แนวรับ-ต้าน | สไตล์ | กล่องข่าว ──
                 st.markdown("<br>", unsafe_allow_html=True)
                 tab_chart, tab_company, tab_sr, tab_style, tab_news = st.tabs([
                     "📈 กราฟ", "🏢 บริษัท", "🎯 แนวรับ-ต้าน", "🧠 สไตล์", "📰 กล่องข่าว"
                 ])
 
-                # ── TAB: กราฟ ─────────────────────────────────────────
                 with tab_chart:
                     try:
                         _cm_key = f"chart_mode_{target_stock}"
@@ -1617,7 +1737,6 @@ if show_analysis:
                         st.error("กราฟแสดงผลไม่ได้ชั่วคราว")
                         st.caption(str(exc))
 
-                # ── TAB: บริษัท ───────────────────────────────────────
                 with tab_company:
                     try:
                         render_financials(info, current_price)
@@ -1626,7 +1745,6 @@ if show_analysis:
                         st.error("ข้อมูลบริษัทแสดงผลไม่ได้ชั่วคราว")
                         st.caption(str(exc))
 
-                # ── TAB: แนวรับ-ต้าน ──────────────────────────────────
                 with tab_sr:
                     try:
                         render_support_resistance(current_price, current_atr, pivots, fibs, values)
@@ -1635,7 +1753,6 @@ if show_analysis:
                         st.error("แนวรับ-แนวต้านแสดงผลไม่ได้ชั่วคราว")
                         st.caption(str(exc))
 
-                # ── TAB: สไตล์การเล่น ─────────────────────────────────
                 with tab_style:
                     try:
                         render_trading_style(current_price, current_atr, pivots, fibs, values)
@@ -1644,7 +1761,6 @@ if show_analysis:
                         st.error("สไตล์การเล่นแสดงผลไม่ได้ชั่วคราว")
                         st.caption(str(exc))
 
-                # ── TAB: กล่องข่าว ────────────────────────────────────
                 with tab_news:
                     try:
                         st.markdown("### 📰 ข่าวล่าสุด")
