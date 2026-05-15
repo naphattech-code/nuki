@@ -337,47 +337,67 @@ h4 { color: #3A3A3C !important; }
     transform: translateY(-1px) !important;
 }
 
-/* ── FIB LEVEL BOX STYLES ──────────────────────────── */
-.fib-table-wrap {
-    background: rgba(15,20,35,0.70);
-    border: 1px solid rgba(167,139,250,0.25);
-    border-radius: 18px;
-    overflow: hidden;
+/* ── FIB LEVEL BOX STYLES — เหมือน SMA/EMA metric cards ────────── */
+.fib-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+    gap: 10px;
     margin: 8px 0 16px 0;
 }
-.fib-row {
-    display: flex;
-    align-items: center;
-    padding: 10px 16px;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    transition: background 0.15s ease;
+/* กรอบ Fibonacci แต่ละ level — ใช้ glass morphism เหมือน metric card */
+.fib-card {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(24px) saturate(220%);
+    -webkit-backdrop-filter: blur(24px) saturate(220%);
+    border-radius: 20px;
+    padding: 14px 16px 12px 16px;
+    border: 1px solid rgba(255,255,255,0.13);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.10);
     position: relative;
+    overflow: hidden;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    border-left: 3px solid transparent;
 }
-.fib-row:last-child { border-bottom: none; }
-.fib-row:hover { background: rgba(255,255,255,0.05); }
-.fib-row.fib-near {
-    background: rgba(251,191,36,0.10);
-    border-left: 3px solid #fbbf24;
+.fib-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.36), inset 0 1px 0 rgba(255,255,255,0.14);
 }
-.fib-row.fib-golden {
-    background: rgba(244,143,177,0.10);
-    border-left: 3px solid #F48FB1;
+/* แต่ละ level ใช้สีซ้าย border ต่างกัน */
+.fib-card.fib-c100  { border-left-color: #CE93D8; }
+.fib-card.fib-c786  { border-left-color: #BA68C8; }
+.fib-card.fib-c618  { border-left-color: #F48FB1; background: rgba(244,143,177,0.12); }
+.fib-card.fib-c500  { border-left-color: #FFB74D; }
+.fib-card.fib-c382  { border-left-color: #81C784; }
+.fib-card.fib-c236  { border-left-color: #64B5F6; }
+.fib-card.fib-c000  { border-left-color: #CE93D8; }
+/* ราคาอยู่ใกล้ — highlight เหมือน golden */
+.fib-card.fib-near  {
+    border-left-color: #fbbf24 !important;
+    background: rgba(251,191,36,0.13) !important;
+    box-shadow: 0 0 0 1px rgba(251,191,36,0.30), 0 6px 22px rgba(251,191,36,0.12),
+                inset 0 1px 0 rgba(255,255,255,0.14) !important;
 }
-.fib-bar-bg {
-    position: absolute; left: 0; top: 0; bottom: 0;
-    background: rgba(167,139,250,0.07);
-    pointer-events: none;
-    transition: width 0.4s ease;
+.fib-card-level {
+    font-size: 0.70rem; font-weight: 800; letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: 6px; opacity: 0.65;
 }
-.fib-label { font-size: 0.78rem; font-weight: 800; color: rgba(235,235,245,0.50); min-width: 72px; letter-spacing: 0.04em; position: relative; z-index: 1; }
-.fib-price { font-size: 1.10rem; font-weight: 900; color: #F5F5F7; min-width: 90px; font-variant-numeric: tabular-nums; position: relative; z-index: 1; }
-.fib-dist  { font-size: 0.82rem; font-weight: 700; min-width: 72px; text-align: right; position: relative; z-index: 1; }
-.fib-desc  { font-size: 0.72rem; color: rgba(235,235,245,0.42); flex: 1; text-align: right; padding-left: 12px; position: relative; z-index: 1; line-height: 1.3; }
-.fib-near-badge {
-    font-size: 0.65rem; font-weight: 800; color: #fbbf24;
-    background: rgba(251,191,36,0.15); border: 1px solid rgba(251,191,36,0.35);
-    border-radius: 6px; padding: 2px 7px; margin-left: 8px;
-    white-space: nowrap; position: relative; z-index: 1;
+.fib-card-price {
+    font-size: 1.30rem; font-weight: 900; letter-spacing: -0.02em;
+    line-height: 1; font-variant-numeric: tabular-nums;
+    color: #F5F5F7; margin-bottom: 4px;
+}
+.fib-card-dist {
+    font-size: 0.84rem; font-weight: 700; margin-bottom: 4px;
+}
+.fib-card-desc {
+    font-size: 0.68rem; color: rgba(235,235,245,0.42); line-height: 1.35;
+}
+.fib-near-chip {
+    display: inline-block;
+    font-size: 0.60rem; font-weight: 800; color: #fbbf24;
+    background: rgba(251,191,36,0.18); border: 1px solid rgba(251,191,36,0.40);
+    border-radius: 6px; padding: 1px 6px; margin-left: 6px;
+    vertical-align: middle; white-space: nowrap;
 }
 
 /* ══ DARK MODE ═══════════════════════════════════════════════════ */
@@ -449,7 +469,8 @@ hr { border-color: rgba(255,255,255,0.08) !important; }
 .gm-header-sub   { color: rgba(235,235,245,0.45) !important; }
 .gm-card-label   { color: #FFFFFF !important; text-shadow: 0 1px 3px rgba(0,0,0,0.45) !important; }
 
-@media (max-width: 768px) {
+/* ── PORTRAIT MOBILE ─────────────────────────────────────── */
+@media (max-width: 768px) and (orientation: portrait) {
     html, body { margin: 0 !important; padding: 0 !important; overflow-x: hidden !important; }
     .block-container, [data-testid="block-container"] {
         padding: 0.4rem 0.4rem 2rem 0.4rem !important; margin: 0 !important;
@@ -468,12 +489,36 @@ hr { border-color: rgba(255,255,255,0.08) !important; }
     [data-testid="stTabs"] button[role="tab"] { font-size: 0.82rem !important; padding: 8px 10px !important; }
     [data-testid="stMetric"] { padding: 12px 14px !important; }
     [data-testid="stMarkdown"]:has(#gm-fav-anchor) + [data-testid="stHorizontalBlock"] { flex-wrap: wrap !important; }
-    .fib-desc { display: none; }
 }
-@media (max-width: 480px) {
+@media (max-width: 480px) and (orientation: portrait) {
     .block-container, [data-testid="block-container"] { padding: 0.25rem 0.35rem 2rem 0.35rem !important; }
     .gm-header-title { font-size: 1.75rem !important; }
     [data-testid="stTabs"] button[role="tab"] { font-size: 0.75rem !important; padding: 7px 8px !important; }
+}
+/* ── LANDSCAPE MOBILE — แนวนอน ──────────────────────────── */
+@media (max-height: 500px) and (orientation: landscape) {
+    html, body { overflow-x: hidden !important; overflow-y: auto !important; }
+    .block-container, [data-testid="block-container"] {
+        padding: 0.3rem 0.6rem 1.5rem 0.6rem !important;
+        max-width: 100vw !important; width: 100vw !important;
+    }
+    /* แนวนอน: columns วางข้างกันได้ ไม่ stack */
+    [data-testid="stHorizontalBlock"] {
+        flex-direction: row !important; flex-wrap: wrap !important;
+        align-items: flex-start !important; gap: 6px !important;
+    }
+    [data-testid="stColumn"] {
+        flex: 1 1 auto !important; min-width: 120px !important;
+        max-width: none !important; width: auto !important;
+    }
+    .gm-header-wrap  { padding: 8px 6px 8px !important; }
+    .gm-header-title { font-size: 1.4rem !important; }
+    .gm-header-sub   { font-size: 0.72rem !important; }
+    /* tabs เล็กลงนิดหน่อย */
+    [data-testid="stTabs"] button[role="tab"] { font-size: 0.76rem !important; padding: 6px 9px !important; }
+    [data-testid="stMetric"] { padding: 10px 12px !important; }
+    /* fib grid 4 col ในแนวนอน */
+    .fib-grid { grid-template-columns: repeat(4, 1fr) !important; }
 }
 </style>
 """
@@ -603,8 +648,8 @@ _stc.html("""
 (function(){
   var d = window.parent.document; var w = window.parent;
   var vp = d.querySelector('meta[name="viewport"]');
-  if(vp) vp.setAttribute('content','width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover');
-  else { var m=d.createElement('meta'); m.name='viewport'; m.content='width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover'; d.head.appendChild(m); }
+  if(vp) vp.setAttribute('content','width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover');
+  else { var m=d.createElement('meta'); m.name='viewport'; m.content='width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover'; d.head.appendChild(m); }
   if(w.history&&w.history.scrollRestoration){ w.history.scrollRestoration='manual'; }
   d.addEventListener('click',function(ev){ var a=ev.target.closest('a'); if(a){ var h=a.getAttribute('href'); if(h==='#'||h===''||h===null){ ev.preventDefault(); ev.stopPropagation(); } }},true);
   function hideFooter(){
@@ -628,7 +673,8 @@ _stc.html("""
     ].forEach(function(sel){ d.querySelectorAll(sel).forEach(function(el){ el.style.setProperty('background','transparent','important'); el.style.setProperty('background-color','transparent','important'); }); });
   }
   function stackCols(){
-    if(w.innerWidth>768) return;
+    // แนวนอน (landscape) ไม่ต้อง stack columns
+    if(w.innerWidth > 768 || (w.innerHeight < 500 && w.innerWidth > w.innerHeight)) return;
     d.querySelectorAll('[data-testid="stHorizontalBlock"]').forEach(function(blk){
       blk.style.setProperty('display','flex','important'); blk.style.setProperty('flex-direction','column','important');
       blk.style.setProperty('align-items','stretch','important'); blk.style.setProperty('width','100%','important');
@@ -647,32 +693,30 @@ _stc.html("""
 
 
 # ─────────────────────────────────────────────────────────────────
-# FIX: Scroll-to-result — ใช้ st.session_state flag + JS ที่ robust
-# แทน _stc.html ซึ่งทำงานไม่แน่นอนใน iframe บาง browser
+# SCROLL-TO-RESULT: inject ผ่าน st.markdown (ทำงานใน parent window)
+# ใช้ window.parent เพราะ Streamlit render ใน iframe
 # ─────────────────────────────────────────────────────────────────
 _SCROLL_JS = """
 <script>
 (function(){
-  // รอให้ Streamlit render element ก่อนแล้วค่อย scroll
-  var tries = 0;
+  var MAX = 40; var tries = 0;
   function doScroll(){
-    var d = window.parent ? window.parent.document : document;
-    var w = window.parent ? window.parent : window;
-    // หา anchor element ด้วยหลาย selector เผื่อ Streamlit เปลี่ยน DOM
-    var anchor = d.getElementById('gm-result-anchor');
-    if(!anchor){
-      // fallback: หา heading ที่ตรงกับ ticker
-      anchor = d.querySelector('[data-testid="stMarkdown"] #gm-result-anchor');
-    }
-    if(anchor){
-      anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else if(tries < 30){
-      tries++;
-      setTimeout(doScroll, 150);
-    }
+    try {
+      // Streamlit Cloud / local: content อยู่ใน parent window
+      var docs = [document, window.parent ? window.parent.document : null];
+      for(var i = 0; i < docs.length; i++){
+        if(!docs[i]) continue;
+        var el = docs[i].getElementById('gm-result-anchor');
+        if(el){
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return;
+        }
+      }
+    } catch(e){}
+    if(tries++ < MAX) setTimeout(doScroll, 120);
   }
-  // delay เล็กน้อยให้ Streamlit วาง DOM ก่อน
-  setTimeout(doScroll, 400);
+  // หน่วงให้ Streamlit วาง DOM ก่อน แล้วค่อย scroll
+  setTimeout(doScroll, 350);
 })();
 </script>
 """
@@ -947,53 +991,105 @@ def _style_signal_html(label: str, color: str, bg: str) -> str:
 
 def render_fib_table(fibs: dict, current_price: float, atr: float):
     """
-    FIX: แสดง Fibonacci levels ด้วย visual box พร้อมสี gradient และ progress bar
-    แต่ละ level มีกรอบแยก ระบุ near/golden zone ชัดเจน
+    แสดง Fibonacci 7 ระดับด้วยกรอบ glass-morphism เหมือน SMA/EMA metric cards
+    แต่ละระดับมีกรอบแยก สีต่างกัน แสดงราคา / ระยะห่าง / คำอธิบาย
     """
-    fib_order = ["Fib 100%", "Fib 78.6%", "Fib 61.8%", "Fib 50.0%", "Fib 38.2%", "Fib 23.6%", "Fib 0%"]
-    fib_values = [fibs.get(k) for k in fib_order]
-    valid_prices = [v for v in fib_values if v is not None and not pd.isna(v)]
-    if not valid_prices:
-        st.warning("ไม่มีข้อมูล Fibonacci")
-        return
+    FIB_ORDER = ["Fib 100%", "Fib 78.6%", "Fib 61.8%", "Fib 50.0%", "Fib 38.2%", "Fib 23.6%", "Fib 0%"]
+    # สี border / accent สำหรับแต่ละ level
+    FIB_ACCENT = {
+        "Fib 100%":  {"border": "#CE93D8", "glow": "rgba(206,147,216,0.25)", "bg": "rgba(206,147,216,0.08)"},
+        "Fib 78.6%": {"border": "#BA68C8", "glow": "rgba(186,104,200,0.22)", "bg": "rgba(186,104,200,0.07)"},
+        "Fib 61.8%": {"border": "#F48FB1", "glow": "rgba(244,143,177,0.30)", "bg": "rgba(244,143,177,0.13)"},
+        "Fib 50.0%": {"border": "#FFB74D", "glow": "rgba(255,183,77,0.25)",  "bg": "rgba(255,183,77,0.09)"},
+        "Fib 38.2%": {"border": "#81C784", "glow": "rgba(129,199,132,0.22)", "bg": "rgba(129,199,132,0.08)"},
+        "Fib 23.6%": {"border": "#64B5F6", "glow": "rgba(100,181,246,0.22)", "bg": "rgba(100,181,246,0.08)"},
+        "Fib 0%":    {"border": "#9575CD", "glow": "rgba(149,117,205,0.22)", "bg": "rgba(149,117,205,0.08)"},
+    }
+    # ป้ายกำกับบอก Action ทันที
+    FIB_LABELS = {
+        "Fib 100%":  ("🏔️", "100.0%", "ยอดเขา",          "ทะลุคือไปต่อ"),
+        "Fib 78.6%": ("🛡️", "78.6%",  "แนวป้องกันสุดท้าย","หลุดคือพัง"),
+        "Fib 61.8%": ("🥇", "61.8%",  "โซนทองคำ",          "สไนเปอร์ซุ่มซื้อ"),
+        "Fib 50.0%": ("🥈", "50.0%",  "จุดวัดใจครึ่งทาง",  "ยืนได้คือยังแข็ง"),
+        "Fib 38.2%": ("🥉", "38.2%",  "แนวรับตื้น",         "เทรนด์ยังแกร่ง"),
+        "Fib 23.6%": ("⚡", "23.6%",  "แนวรับซุปเปอร์ซิ่ง", "พักสั้น ต่อขึ้น"),
+        "Fib 0%":    ("⚠️", "0.0%",   "จุดต่ำสุด",          "ก้นเหว / เสียทรง"),
+    }
 
-    price_max = max(valid_prices)
-    price_min = min(valid_prices)
-    price_range = price_max - price_min if price_max != price_min else 1.0
+    valid = [(k, fibs[k]) for k in FIB_ORDER if k in fibs and fibs[k] is not None and not pd.isna(fibs[k])]
+    if not valid:
+        st.warning("ไม่มีข้อมูล Fibonacci"); return
 
-    rows_html = ""
-    for key, val in zip(fib_order, fib_values):
-        if val is None or pd.isna(val):
-            continue
-        c = FIB_COLORS.get(key, {"border": "#a78bfa", "text": "#a78bfa", "bg": "rgba(167,139,250,0.10)"})
-        desc_title, desc_body = FIB_DESCRIPTIONS.get(key, ("", ""))
-        distance = ((current_price - val) / val) * 100 if val else 0
-        is_near   = abs(current_price - val) <= atr * 0.5
+    cards_html = ""
+    for key, val in valid:
+        ac = FIB_ACCENT.get(key, {"border":"#a78bfa","glow":"rgba(167,139,250,0.20)","bg":"rgba(167,139,250,0.08)"})
+        emoji, pct_label, role_main, role_action = FIB_LABELS.get(key, ("📌","","",""))
+        dist_pct  = (current_price - val) / val * 100
+        dist_abs  = current_price - val
+        is_near   = abs(dist_abs) <= atr * 0.55
         is_golden = key == "Fib 61.8%"
-        dist_color = "#34D399" if distance >= 0 else "#F87171"
-        sign = "+" if distance >= 0 else ""
+        dist_color = "#34D399" if dist_pct >= 0 else "#F87171"
+        sign = "+" if dist_pct >= 0 else ""
+        above_below = "เหนือ ↑" if dist_pct >= 0 else "ใต้ ↓"
 
-        # progress bar width (% ของช่วงราคา)
-        bar_pct = ((val - price_min) / price_range) * 100
+        # กรอบพิเศษเมื่อราคาอยู่ใกล้
+        if is_near:
+            border_style = f"border:1.5px solid {ac['border']};box-shadow:0 0 0 2px {ac['glow']},0 6px 24px rgba(0,0,0,0.32),inset 0 1px 0 rgba(255,255,255,0.12);"
+            near_chip = '<span style="display:inline-block;font-size:0.58rem;font-weight:800;color:#fbbf24;background:rgba(251,191,36,0.18);border:1px solid rgba(251,191,36,0.45);border-radius:5px;padding:1px 6px;margin-left:5px;vertical-align:middle;">📍 ใกล้</span>'
+        else:
+            border_style = "border:1px solid rgba(255,255,255,0.11);"
+            near_chip = ""
 
-        extra_class = ""
-        if is_near:   extra_class = "fib-near"
-        elif is_golden: extra_class = "fib-golden"
+        # role_main: สี accent / Golden ใช้สีชมพูเข้ม
+        if is_golden:
+            role_main_html = f'<span style="color:#F48FB1;font-weight:800;">{role_main}</span>'
+        else:
+            role_main_html = f'<span style="color:{ac["border"]};font-weight:700;">{role_main}</span>'
 
-        near_badge = '<span class="fib-near-badge">📍 ราคาใกล้</span>' if is_near else ""
-        label_short = key.replace("Fib ", "")
+        # ราคา format
+        if val >= 10000:   price_fmt = f"{val:,.0f}"
+        elif val >= 100:   price_fmt = f"{val:,.2f}"
+        elif val >= 1:     price_fmt = f"{val:.4f}"
+        else:              price_fmt = f"{val:.6f}"
 
-        rows_html += f"""
-<div class="fib-row {extra_class}">
-  <div class="fib-bar-bg" style="width:{bar_pct:.1f}%"></div>
-  <div class="fib-label" style="color:{c['text']};">{label_short}</div>
-  <div class="fib-price">{val:.2f}{near_badge}</div>
-  <div class="fib-dist" style="color:{dist_color};">{sign}{distance:.1f}%</div>
-  <div class="fib-desc">{desc_title}</div>
+        cards_html += f"""
+<div style="background:{ac['bg']};backdrop-filter:blur(22px) saturate(200%);
+     -webkit-backdrop-filter:blur(22px) saturate(200%);
+     border-radius:18px;padding:14px 16px 12px;
+     {border_style}
+     transition:transform 0.18s ease,box-shadow 0.18s ease;
+     border-left:3px solid {ac['border']};">
+  <!-- header: level % + emoji -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;">
+    <span style="font-size:0.68rem;font-weight:800;letter-spacing:0.07em;
+          color:{ac['border']};">{pct_label}</span>
+    <span style="font-size:0.85rem;">{emoji}</span>
+  </div>
+  <!-- ราคา -->
+  <div style="font-size:1.28rem;font-weight:900;color:#F5F5F7;letter-spacing:-0.02em;
+       line-height:1;font-variant-numeric:tabular-nums;margin-bottom:5px;">
+    {price_fmt}{near_chip}
+  </div>
+  <!-- ระยะห่าง -->
+  <div style="font-size:0.82rem;font-weight:700;color:{dist_color};margin-bottom:6px;">
+    {above_below}&nbsp;{sign}{abs(dist_pct):.1f}%
+    <span style="font-size:0.68rem;font-weight:500;color:rgba(235,235,245,0.32);margin-left:3px;">
+      ({sign}{abs(dist_abs):.2f})
+    </span>
+  </div>
+  <!-- role name -->
+  <div style="font-size:0.72rem;margin-bottom:2px;line-height:1.3;">{role_main_html}</div>
+  <!-- action hint -->
+  <div style="font-size:0.64rem;color:rgba(235,235,245,0.38);line-height:1.3;">{role_action}</div>
 </div>"""
 
-    st.markdown(f'<div class="fib-table-wrap">{rows_html}</div>', unsafe_allow_html=True)
-    st.caption("📐 คำนวณจาก Swing High/Low ย้อนหลัง 60 วัน  |  สีแดงอยู่เหนือราคา สีเขียวอยู่ใต้ราคา  |  📍 = ราคาอยู่ใกล้ระดับนี้ (ห่าง < ½ ATR)")
+    # 7 cards ใน responsive grid
+    st.markdown(f"""
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,155px),1fr));
+     gap:10px;margin:8px 0 14px;">
+  {cards_html}
+</div>""", unsafe_allow_html=True)
+    st.caption("📐 Swing High/Low ย้อนหลัง 60 วัน  ·  📍 ราคาอยู่ใกล้ (< ½ ATR)  ·  🥇 Golden Ratio 61.8% = โซนที่ดีที่สุด")
 
 
 def render_trading_style(price, atr, pivots, fibs, values):
@@ -1502,13 +1598,34 @@ show_analysis = bool(target_stock) and (
 # STOCK RESULT SECTION
 # ══════════════════════════════════════════════════════════════════
 if show_analysis:
-    # FIX: วาง anchor ก่อน render ผล — scroll JS จะทำงานหลังจาก DOM พร้อม
-    st.markdown('<div id="gm-result-anchor" style="scroll-margin-top:20px;"></div>', unsafe_allow_html=True)
+    # วาง anchor ก่อน render ผล
+    st.markdown('<div id="gm-result-anchor" style="scroll-margin-top:16px;"></div>', unsafe_allow_html=True)
 
-    # FIX: inject scroll JS ทุกครั้งที่มีผลลัพธ์ใหม่
+    # SCROLL FIX: ใส่ timestamp นาโนวินาทีเป็น comment ใน JS
+    # → หน้าตา HTML ต่างกันทุกครั้ง Streamlit ไม่ cache / deduplicate
     if st.session_state.should_scroll:
         st.session_state.should_scroll = False
-        st.markdown(_SCROLL_JS, unsafe_allow_html=True)
+        _nonce = _time.time_ns()          # เปลี่ยนทุก ms → JS ไม่ถูกข้ามแม้กด 10 ครั้งติด
+        _stc.html(f"""
+<script>
+// nonce:{_nonce}
+(function(){{
+  var tries = 0;
+  function go(){{
+    try {{
+      var docs = [];
+      if(window.parent && window.parent.document) docs.push(window.parent.document);
+      docs.push(document);
+      for(var i=0;i<docs.length;i++){{
+        var el = docs[i].getElementById('gm-result-anchor');
+        if(el){{ el.scrollIntoView({{behavior:'smooth', block:'start'}}); return; }}
+      }}
+    }} catch(e){{}}
+    if(tries++ < 40) setTimeout(go, 100);
+  }}
+  setTimeout(go, 320);
+}})();
+</script>""", height=0, scrolling=False)
 
     with st.spinner(f"กำลังดึงข้อมูลของ {target_stock}..."):
         try:
@@ -1805,3 +1922,4 @@ if show_analysis:
 
 st.markdown("---")
 st.caption("⚠️ แอปพลิเคชันนี้ใช้คำนวณสัญญาณทางคณิตศาสตร์เบื้องต้น ไม่ใช่คำแนะนำการลงทุน")
+ 
