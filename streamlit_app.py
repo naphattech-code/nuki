@@ -164,6 +164,17 @@ body {
     overflow-x: hidden !important;
     background: transparent !important;
 }
+/* ── ล้าง padding ทุก Streamlit wrapper layer ── */
+[data-testid="stApp"],
+[data-testid="stAppViewContainer"],
+[data-testid="stMain"],
+[data-testid="stMainBlockContainer"],
+section.main,
+.main {
+    padding: 0 !important; margin: 0 !important;
+    background: transparent !important;
+    width: 100% !important; max-width: 100% !important;
+}
 [data-testid="stCustomComponentV1"],
 [data-testid="stCustomComponentV1"] > div,
 [data-testid="stCustomComponentV1"] iframe {
@@ -182,6 +193,7 @@ body {
 .block-container, [data-testid="block-container"] {
     padding: 0.75rem 0.75rem 2rem 0.75rem !important;
     max-width: 100% !important;
+    box-sizing: border-box !important;
 }
 [data-testid="stHeader"] { display: none !important; height: 0 !important; visibility: hidden !important; }
 
@@ -469,56 +481,68 @@ hr { border-color: rgba(255,255,255,0.08) !important; }
 .gm-header-sub   { color: rgba(235,235,245,0.45) !important; }
 .gm-card-label   { color: #FFFFFF !important; text-shadow: 0 1px 3px rgba(0,0,0,0.45) !important; }
 
-/* ── PORTRAIT MOBILE ─────────────────────────────────────── */
-@media (max-width: 768px) and (orientation: portrait) {
-    html, body { margin: 0 !important; padding: 0 !important; overflow-x: hidden !important; }
+/* ── RESPONSIVE MOBILE (บังคับยืดเต็มจอสุดหลอด ขอบชนขอบ 100%) ────────────────── */
+@media (max-width: 950px) {
+    html, body, [data-testid="stApp"], [data-testid="stAppViewContainer"], section.main {
+        background-color: #0a0f18 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow-x: hidden !important;
+        max-width: 100% !important;
+        width: 100% !important;
+    }
     .block-container, [data-testid="block-container"] {
-        padding: 0.4rem 0.4rem 2rem 0.4rem !important; margin: 0 !important;
-        max-width: 100vw !important; width: 100vw !important;
+        padding-top: 1rem !important;
+        padding-bottom: 2rem !important;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
+    }
+    * { box-sizing: border-box !important; }
+    .gm-header-wrap  { padding: 10px 4px 14px !important; }
+    .gm-header-title { font-size: 1.8rem !important; }
+    [data-testid="stTabs"] button[role="tab"] { font-size: 0.82rem !important; padding: 6px 8px !important; margin: 0 2px !important; }
+    [data-testid="stMetric"], .gm-card {
+        padding: 12px 14px !important;
+        margin: 0 4px !important;
     }
     [data-testid="stHorizontalBlock"] {
-        flex-direction: column !important; align-items: stretch !important;
-        gap: 0.5rem !important; width: 100% !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 8px !important;
+        width: 100% !important;
+        padding: 0 4px !important;
     }
     [data-testid="stColumn"] {
-        width: 100% !important; min-width: 100% !important; max-width: 100% !important;
-        flex: 0 0 auto !important; box-sizing: border-box !important;
+        width: 100% !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin-bottom: 8px !important;
     }
-    .gm-header-wrap  { padding: 44px 6px 14px !important; }
-    .gm-header-title { font-size: 2.0rem !important; }
-    [data-testid="stTabs"] button[role="tab"] { font-size: 0.82rem !important; padding: 8px 10px !important; }
-    [data-testid="stMetric"] { padding: 12px 14px !important; }
-    [data-testid="stMarkdown"]:has(#gm-fav-anchor) + [data-testid="stHorizontalBlock"] { flex-wrap: wrap !important; }
-}
-@media (max-width: 480px) and (orientation: portrait) {
-    .block-container, [data-testid="block-container"] { padding: 0.25rem 0.35rem 2rem 0.35rem !important; }
-    .gm-header-title { font-size: 1.75rem !important; }
-    [data-testid="stTabs"] button[role="tab"] { font-size: 0.75rem !important; padding: 7px 8px !important; }
-}
-/* ── LANDSCAPE MOBILE — แนวนอน ──────────────────────────── */
-@media (max-height: 500px) and (orientation: landscape) {
-    html, body { overflow-x: hidden !important; overflow-y: auto !important; }
-    .block-container, [data-testid="block-container"] {
-        padding: 0.3rem 0.6rem 1.5rem 0.6rem !important;
-        max-width: 100vw !important; width: 100vw !important;
+    [data-testid="stMarkdown"]:has(#gm-fav-anchor) + [data-testid="stHorizontalBlock"] {
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        margin-bottom: 6px !important;
+        padding: 0 !important;
     }
-    /* แนวนอน: columns วางข้างกันได้ ไม่ stack */
-    [data-testid="stHorizontalBlock"] {
-        flex-direction: row !important; flex-wrap: wrap !important;
-        align-items: flex-start !important; gap: 6px !important;
+    [data-testid="stMarkdown"]:has(#gm-fav-anchor) + [data-testid="stHorizontalBlock"] [data-testid="stColumn"] {
+        width: auto !important;
+        min-width: auto !important;
+        max-width: none !important;
+        flex: 0 0 auto !important;
     }
-    [data-testid="stColumn"] {
-        flex: 1 1 auto !important; min-width: 120px !important;
-        max-width: none !important; width: auto !important;
+/* ── PORTRAIT LOCK — บังคับแนวตั้ง (Safari iOS + ทุก browser) ── */
+@media (orientation: landscape) and (max-height: 600px) {
+    /* แสดง overlay เต็มจอเมื่อหมุนแนวนอน */
+    #gm-rotate-overlay {
+        display: flex !important;
     }
-    .gm-header-wrap  { padding: 8px 6px 8px !important; }
-    .gm-header-title { font-size: 1.4rem !important; }
-    .gm-header-sub   { font-size: 0.72rem !important; }
-    /* tabs เล็กลงนิดหน่อย */
-    [data-testid="stTabs"] button[role="tab"] { font-size: 0.76rem !important; padding: 6px 9px !important; }
-    [data-testid="stMetric"] { padding: 10px 12px !important; }
-    /* fib grid 4 col ในแนวนอน */
-    .fib-grid { grid-template-columns: repeat(4, 1fr) !important; }
 }
 </style>
 """
@@ -648,8 +672,50 @@ _stc.html("""
 (function(){
   var d = window.parent.document; var w = window.parent;
   var vp = d.querySelector('meta[name="viewport"]');
-  if(vp) vp.setAttribute('content','width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover');
-  else { var m=d.createElement('meta'); m.name='viewport'; m.content='width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover'; d.head.appendChild(m); }
+  if(vp) vp.setAttribute('content','width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover');
+  else { var m=d.createElement('meta'); m.name='viewport'; m.content='width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover'; d.head.appendChild(m); }
+  // ── PORTRAIT LOCK (Safari iOS safe) ──────────────────────────
+  // Screen Orientation API (Android Chrome)
+  try {
+    if(w.screen && w.screen.orientation && w.screen.orientation.lock) {
+      w.screen.orientation.lock('portrait').catch(function(){});
+    }
+  } catch(e) {}
+
+  // Overlay สำหรับ Safari iOS ที่ lock ด้วย API ไม่ได้
+  var overlay = d.getElementById('gm-rotate-overlay');
+  if(!overlay){
+    overlay = d.createElement('div');
+    overlay.id = 'gm-rotate-overlay';
+    overlay.style.cssText = [
+      'display:none',
+      'position:fixed',
+      'inset:0',
+      'z-index:2147483646',
+      'background:#0a0f18',
+      'flex-direction:column',
+      'align-items:center',
+      'justify-content:center',
+      'gap:18px',
+      'font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif',
+    ].join(';');
+    overlay.innerHTML = [
+      '<div style="font-size:3.5rem;animation:gmRotateSpin 2s ease-in-out infinite;">📱</div>',
+      '<div style="font-size:1.1rem;font-weight:700;color:#F5F5F7;letter-spacing:0.02em;">กรุณาหมุนกลับแนวตั้ง</div>',
+      '<div style="font-size:0.82rem;color:rgba(235,235,245,0.45);">แอปนี้ออกแบบสำหรับแนวตั้งเท่านั้น</div>',
+    ].join('');
+    var ks = d.createElement('style');
+    ks.textContent = '@keyframes gmRotateSpin{0%,100%{transform:rotate(0deg)}40%{transform:rotate(90deg)}60%{transform:rotate(90deg)}}';
+    d.head.appendChild(ks);
+    d.body.appendChild(overlay);
+  }
+  function checkOrientation(){
+    var isLandscape = w.innerWidth > w.innerHeight && w.innerHeight < 600;
+    overlay.style.display = isLandscape ? 'flex' : 'none';
+  }
+  checkOrientation();
+  w.addEventListener('resize', checkOrientation);
+  w.addEventListener('orientationchange', function(){ setTimeout(checkOrientation, 120); });
   if(w.history&&w.history.scrollRestoration){ w.history.scrollRestoration='manual'; }
   d.addEventListener('click',function(ev){ var a=ev.target.closest('a'); if(a){ var h=a.getAttribute('href'); if(h==='#'||h===''||h===null){ ev.preventDefault(); ev.stopPropagation(); } }},true);
   function hideFooter(){
@@ -668,23 +734,36 @@ _stc.html("""
     });
   }
   function fixBg(){
-    ['[data-testid="stApp"]','[data-testid="stAppViewContainer"]','[data-testid="stMain"]',
-     '[data-testid="block-container"]','[data-testid="stVerticalBlock"]','.block-container','section.main'
-    ].forEach(function(sel){ d.querySelectorAll(sel).forEach(function(el){ el.style.setProperty('background','transparent','important'); el.style.setProperty('background-color','transparent','important'); }); });
-  }
-  function stackCols(){
-    // แนวนอน (landscape) ไม่ต้อง stack columns
-    if(w.innerWidth > 768 || (w.innerHeight < 500 && w.innerWidth > w.innerHeight)) return;
-    d.querySelectorAll('[data-testid="stHorizontalBlock"]').forEach(function(blk){
-      blk.style.setProperty('display','flex','important'); blk.style.setProperty('flex-direction','column','important');
-      blk.style.setProperty('align-items','stretch','important'); blk.style.setProperty('width','100%','important');
-      blk.querySelectorAll('[data-testid="stColumn"]').forEach(function(col){
-        col.style.setProperty('width','100%','important'); col.style.setProperty('min-width','100%','important');
-        col.style.setProperty('max-width','100%','important'); col.style.setProperty('flex','0 0 auto','important');
+    var selectors = [
+      '[data-testid="stApp"]','[data-testid="stAppViewContainer"]',
+      '[data-testid="stMain"]','[data-testid="stMainBlockContainer"]',
+      '[data-testid="stVerticalBlock"]','.block-container','section.main','.main'
+    ];
+    selectors.forEach(function(sel){
+      d.querySelectorAll(sel).forEach(function(el){
+        el.style.setProperty('background','transparent','important');
+        el.style.setProperty('background-color','transparent','important');
       });
     });
+    // mobile: ลบ padding/margin ของ wrapper ทุกชั้น
+    if(w.innerWidth <= 768){
+      var padSelectors = [
+        '[data-testid="stApp"]','[data-testid="stAppViewContainer"]',
+        '[data-testid="stMain"]','[data-testid="stMainBlockContainer"]',
+        '[data-testid="stVerticalBlock"]','section.main','.main'
+      ];
+      padSelectors.forEach(function(sel){
+        d.querySelectorAll(sel).forEach(function(el){
+          el.style.setProperty('padding','0','important');
+          el.style.setProperty('margin','0','important');
+          el.style.setProperty('max-width','100vw','important');
+          el.style.setProperty('width','100%','important');
+          el.style.setProperty('box-sizing','border-box','important');
+        });
+      });
+    }
   }
-  function runAll(){ hideFooter(); fixBg(); stackCols(); }
+  function runAll(){ hideFooter(); fixBg(); }
   runAll(); w.addEventListener('resize',runAll);
   new MutationObserver(runAll).observe(d.body,{childList:true,subtree:true});
 })();
@@ -780,7 +859,42 @@ def favorite_button_label(ticker):
 
 @st.cache_data(ttl=300)
 def load_stock_history(ticker):
-    return yf.Ticker(ticker).history(period="2y")
+    """
+    ลองดึงข้อมูลหลาย period จากสั้นไปยาว
+    — รองรับหุ้นที่เพิ่ง IPO มีข้อมูลแค่ไม่กี่วัน
+    — คืน DataFrame ที่มีข้อมูลมากที่สุดเท่าที่มี
+    """
+    ticker_obj = yf.Ticker(ticker)
+
+    # ลองจาก period สั้นที่สุดก่อน เพื่อเช็คว่า ticker valid
+    # จากนั้นเพิ่มระยะเวลาขึ้นเรื่อยๆ
+    periods = ["5d", "1mo", "3mo", "6mo", "1y", "2y"]
+    best_df = pd.DataFrame()
+
+    for period in periods:
+        try:
+            df = ticker_obj.history(period=period)
+            if df is not None and not df.empty:
+                best_df = df
+                # ถ้าได้ข้อมูลมากพอสำหรับ indicator ครบ ก็พอแล้ว
+                if len(df) >= 60:
+                    return df
+        except Exception:
+            continue
+
+    # fallback: ลอง download ด้วย start date ไกลสุด
+    if best_df.empty:
+        try:
+            df = yf.download(ticker, period="max", progress=False, auto_adjust=True)
+            if df is not None and not df.empty:
+                # flatten multi-index ถ้ามี
+                if isinstance(df.columns, pd.MultiIndex):
+                    df.columns = df.columns.get_level_values(0)
+                best_df = df
+        except Exception:
+            pass
+
+    return best_df
 
 
 @st.cache_data(ttl=300)
@@ -1568,6 +1682,8 @@ for _qcol, _qt in zip(_qcols, quick_tickers):
         st.rerun()
 
 # ── Search input + scan button ────────────────────────────────────
+# Enter key: Streamlit text_input triggers rerun on Enter automatically
+# เราเช็คว่า search_box มีค่า + ไม่ใช่ blank → สแกนเลย (ไม่ต้องกดปุ่ม)
 _sc1, _sc2 = st.columns([4, 1])
 _sc1.text_input("🔍", placeholder=placeholder, key="search_box", label_visibility="collapsed")
 scan_btn = _sc2.button("🚀 สแกน", use_container_width=True, type="primary")
@@ -1586,12 +1702,22 @@ if is_thai and _raw and not _raw.upper().endswith(".BK"):
 else:
     target_stock = _raw
 
-if (scan_btn or auto_scan) and target_stock:
+# Enter key: ถ้า typed ตรงกับ target และยังไม่ได้สแกน → trigger อัตโนมัติ
+# (Streamlit rerun เมื่อ text_input เปลี่ยนหรือกด Enter)
+_enter_triggered = (
+    bool(_typed)
+    and not scan_btn
+    and not auto_scan
+    and target_stock != st.session_state.current_stock
+)
+
+if (scan_btn or auto_scan or _enter_triggered) and target_stock:
     st.session_state.current_stock = target_stock
-    st.session_state.should_scroll = True   # FIX: set scroll flag เมื่อ scan button กด
+    st.session_state.should_scroll = True
 
 show_analysis = bool(target_stock) and (
-    scan_btn or auto_scan or st.session_state.current_stock == target_stock
+    scan_btn or auto_scan or _enter_triggered
+    or st.session_state.current_stock == target_stock
 )
 
 # ══════════════════════════════════════════════════════════════════
@@ -1633,8 +1759,8 @@ if show_analysis:
             df    = load_stock_history(target_stock)
             info  = load_stock_info(target_stock)
 
-            if df.empty or len(df) < 20:
-                st.error("❌ ไม่พบข้อมูลหุ้นนี้ หรือข้อมูลน้อยเกินไป — ตรวจสอบชื่อย่อหุ้นอีกครั้ง")
+            if df.empty or len(df) < 2:
+                st.error("❌ ไม่พบข้อมูลหุ้นนี้ — ตรวจสอบชื่อย่อหุ้นอีกครั้ง (ตัวอย่าง: AAPL, PTT.BK)")
                 _stc.html(f"""<script>(function(){{
   var tries=0;
   function say(){{ if(window.parent&&window.parent.gmTanukiSpeak) window.parent.gmTanukiSpeak('ไม่พบข้อมูลหุ้นนี้ ลองตรวจชื่อย่ออีกครั้งนะ','alert');
@@ -1642,6 +1768,9 @@ if show_analysis:
   setTimeout(say,450);
 }})();</script>""", height=0, scrolling=False)
             else:
+                # แจ้งเตือนถ้าข้อมูลน้อย (หุ้น IPO ใหม่)
+                if len(df) < 20:
+                    st.warning(f"⚠️ หุ้นนี้มีข้อมูลเพียง {len(df)} วัน (อาจเป็น IPO ใหม่) — ตัวชี้วัดบางตัวอาจไม่แม่นยำ")
                 indicators    = calculate_indicators(df)
                 current_price = float(df["Close"].iloc[-1])
                 prev_price    = float(df["Close"].iloc[-2])
@@ -1922,4 +2051,3 @@ if show_analysis:
 
 st.markdown("---")
 st.caption("⚠️ แอปพลิเคชันนี้ใช้คำนวณสัญญาณทางคณิตศาสตร์เบื้องต้น ไม่ใช่คำแนะนำการลงทุน")
- 
